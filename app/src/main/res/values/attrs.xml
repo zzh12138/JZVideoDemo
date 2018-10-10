@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VoiceAnimationView">
+        <attr name="rectangleColor" format="reference|color" />
+        <attr name="rectangleNum" format="integer" />
+        <attr name="rectanglePadding" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="MaskView">
+        <attr name="backgroundColor" format="reference|color" />
+    </declare-styleable>
+</resources>

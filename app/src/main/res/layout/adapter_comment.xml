@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+    <ImageView
+        android:id="@+id/adapter_comment_avatar"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:id="@+id/adapter_comment_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/adapter_comment_avatar"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/adapter_comment_praise"
+        android:layout_toRightOf="@+id/adapter_comment_avatar"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#cccccc"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="asdfsdfsdfsdfsdsssssssssssssssssssssssssssssf" />
+
+    <TextView
+        android:id="@+id/adapter_comment_praise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/icon_praise"
+        android:gravity="bottom"
+        android:textColor="#666666"
+        android:textSize="11sp"
+        tools:text="123" />
+
+    <TextView
+        android:id="@+id/adapter_comment_parent_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/adapter_comment_user_name"
+        android:layout_below="@+id/adapter_comment_user_name"
+        android:layout_marginTop="10dp"
+        android:background="#333333"
+        android:lineSpacingMultiplier="1.1"
+        android:padding="10dp"
+        android:textColor="#cccccc"
+        android:textSize="14sp"
+        android:visibility="visible"
+        tools:text="asdfsdfsdfsdfsdsssssssssssssssssssssssssssssf" />
+
+    <TextView
+        android:id="@+id/adapter_comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/adapter_comment_user_name"
+        android:layout_below="@+id/adapter_comment_parent_content"
+        android:layout_marginTop="10dp"
+        android:lineSpacingMultiplier="1.1"
+        android:textColor="#cccccc"
+        android:textSize="16sp"
+        tools:text="asdfsdfsdfsdfsdsssssssssssssssssssssssssssssf" />
+
+    <TextView
+        android:id="@+id/adapter_comment_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/adapter_comment_user_name"
+        android:layout_below="@+id/adapter_comment_content"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="5dp"
+        android:textColor="#666666"
+        android:textSize="11sp"
+        tools:text="1232123" />
+
+</RelativeLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/adapter_video_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <com.zzh12138.jzvideodemo.view.PlayerContainer
+        android:id="@+id/adapter_video_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zzh12138.jzvideodemo.player.JZVideoPlayerStandard
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.zzh12138.jzvideodemo.view.PlayerContainer>
+</LinearLayout>
