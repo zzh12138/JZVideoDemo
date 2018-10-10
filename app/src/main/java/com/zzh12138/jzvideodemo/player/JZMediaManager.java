@@ -43,8 +43,7 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
         mMediaHandler = new MediaHandler(mMediaHandlerThread.getLooper());
         mainThreadHandler = new Handler();
         if (jzMediaInterface == null)
-//            jzMediaInterface = new JZExoPlayer();
-            jzMediaInterface = new JZMediaIjkplayer();
+            jzMediaInterface = new JZExoPlayer();
 
     }
 
@@ -151,17 +150,17 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
                 case HANDLER_PREPARE:
                     currentVideoWidth = 0;
                     currentVideoHeight = 0;
-//                    try {
-                    jzMediaInterface.prepare();
-//                    } catch (Throwable e) {
-//                        e.printStackTrace();
-//                        Object dataSource = JZMediaManager.getCurrentDataSource();
-//                        Log.e(TAG, "handleMessage: " + e.getMessage());
-//                        Toast.makeText(MyApplication.getInstance(), "so error", Toast.LENGTH_SHORT).show();
-//                        JZVideoPlayer.setMediaInterface(new JZExoPlayer());
-//                        jzMediaInterface.currentDataSource = dataSource;
-//                        jzMediaInterface.prepare();
-//                    }
+                    try {
+                        jzMediaInterface.prepare();
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                        Object dataSource = JZMediaManager.getCurrentDataSource();
+                        Log.e(TAG, "handleMessage: " + e.getMessage());
+                        Toast.makeText(MyApplication.getInstance(), "so error", Toast.LENGTH_SHORT).show();
+                        JZVideoPlayer.setMediaInterface(new JZExoPlayer());
+                        jzMediaInterface.currentDataSource = dataSource;
+                        jzMediaInterface.prepare();
+                    }
 
                     if (savedSurfaceTexture != null) {
                         if (surface != null) {
