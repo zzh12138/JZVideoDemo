@@ -223,8 +223,7 @@ public class JZUtils {
     }
 
     public static void onScrollPlayVideo(RecyclerView recyclerView, int firstVisiblePosition, int lastVisiblePosition) {
-//        if (JZMediaManager.isWiFi) {
-        if (true) {
+        if (JZMediaManager.isWiFi) {
             Log.d(TAG, "onScrollPlayVideo: first:" + firstVisiblePosition);
             Log.d(TAG, "onScrollPlayVideo: last:" + lastVisiblePosition);
             Log.d(TAG, "onScrollPlayVideo: current:" + JZMediaManager.instance().positionInList);
