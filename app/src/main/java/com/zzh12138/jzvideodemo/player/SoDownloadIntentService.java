@@ -62,7 +62,6 @@ public class SoDownloadIntentService extends IntentService {
                 if (JZVideoPlayerManager.getCurrentJzvd() == null) {
                     JZVideoPlayer.setMediaInterface(new JZMediaIjkplayer());
                 }
-                Toast.makeText(MyApplication.getInstance(), "download complete", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
