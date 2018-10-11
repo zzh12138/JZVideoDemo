@@ -160,6 +160,7 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
                         JZVideoPlayer.setMediaInterface(new JZExoPlayer());
                         jzMediaInterface.currentDataSource = dataSource;
                         jzMediaInterface.prepare();
+                        mainThreadHandler = new Handler(Looper.getMainLooper());
                     }
 
                     if (savedSurfaceTexture != null) {
