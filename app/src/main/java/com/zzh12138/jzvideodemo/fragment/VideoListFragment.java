@@ -244,8 +244,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
     @Override
     public void scrollToPosition(int position) {
         if (mRecycler != null && !isShowComment && position >= 0 && position < mList.size()) {
-            LinearLayoutManager manager = (LinearLayoutManager) mRecycler.getLayoutManager();
-            int first = manager.findFirstVisibleItemPosition();
+            int first = mLayoutManager.findFirstVisibleItemPosition();
             View view = mRecycler.getChildAt(position - first);
             if (view != null) {
                 if (position == mList.size() - 1) {
@@ -296,8 +295,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
                     public void run() {
                         int position = JZMediaManager.instance().positionInList;
                         if (position >= 0 && position < mList.size() - 1) {
-                            LinearLayoutManager manager = (LinearLayoutManager) mRecycler.getLayoutManager();
-                            int first = manager.findFirstVisibleItemPosition();
+                            int first = mLayoutManager.findFirstVisibleItemPosition();
                             View view = mRecycler.getChildAt(position + 1 - first);
                             if (view != null) {
                                 int scrollY;
@@ -395,12 +393,12 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
         title.postDelayed(new Runnable() {
             @Override
             public void run() {
-                title.setVisibility(View.GONE);
-                bottomLayout.setVisibility(View.GONE);
+                title.animate().alpha(0f).setDuration(DURATION);
+                bottomLayout.animate().alpha(0f).setDuration(DURATION);
                 container.animate().scaleX((float) mAttr.getWidth() / container.getWidth())
                         .scaleY((float) mAttr.getHeight() / container.getHeight())
                         .setDuration(DURATION);
-                v.animate().translationY(mAttr.getY() - location[1] - (container.getHeight() - mAttr.getHeight()) / 2).setDuration(DURATION);
+                v.animate().translationY(mAttr.getY() - location[1] - (container.getHeight() - mAttr.getHeight()) / 2-title.getHeight()).setDuration(DURATION);
                 bgAnimator.reverse();
             }
         }, 250);

@@ -6,6 +6,14 @@
     android:layout_marginTop="50dp"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/video_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
     <com.zzh12138.jzvideodemo.view.PlayerContainer
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -17,18 +25,11 @@
             android:layout_height="wrap_content" />
     </com.zzh12138.jzvideodemo.view.PlayerContainer>
 
-    <TextView
-        android:id="@+id/video_title"
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:id="@+id/bottom_layout"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/source"

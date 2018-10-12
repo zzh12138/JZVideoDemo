@@ -74,7 +74,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
                     holder.itemView.getViewTreeObserver().removeOnPreDrawListener(this);
                     int[] l = new int[2];
                     holder.itemView.getLocationOnScreen(l);
-                    holder.itemView.setTranslationY(attr.getY() - l[1] - (holder.container.getMeasuredHeight() - attr.getHeight()) / 2);
+                    holder.itemView.setTranslationY(attr.getY() - l[1] - (holder.container.getMeasuredHeight() - attr.getHeight()) / 2 - holder.title.getMeasuredHeight());
                     holder.container.setScaleX(attr.getWidth() / (float) holder.container.getMeasuredWidth());
                     holder.container.setScaleY(attr.getHeight() / (float) holder.container.getMeasuredHeight());
                     holder.title.setAlpha(0);

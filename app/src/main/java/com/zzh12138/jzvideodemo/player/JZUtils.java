@@ -224,9 +224,6 @@ public class JZUtils {
 
     public static void onScrollPlayVideo(RecyclerView recyclerView, int firstVisiblePosition, int lastVisiblePosition) {
         if (JZMediaManager.isWiFi) {
-            Log.d(TAG, "onScrollPlayVideo: first:" + firstVisiblePosition);
-            Log.d(TAG, "onScrollPlayVideo: last:" + lastVisiblePosition);
-            Log.d(TAG, "onScrollPlayVideo: current:" + JZMediaManager.instance().positionInList);
             for (int i = 0; i <= lastVisiblePosition - firstVisiblePosition; i++) {
                 View child = recyclerView.getChildAt(i);
                 View view = child.findViewById(R.id.player);
@@ -249,12 +246,8 @@ public class JZUtils {
 
     public static void onScrollReleaseAllVideos(int firstVisiblePosition, int lastVisiblePosition,float percent) {
         int currentPlayPosition = JZMediaManager.instance().positionInList;
-        Log.d(TAG, "onScrollReleaseAllVideos: current:" + currentPlayPosition);
-        Log.d(TAG, "onScrollReleaseAllVideos: first:" + firstVisiblePosition);
-        Log.d(TAG, "onScrollReleaseAllVideos: last:" + lastVisiblePosition);
         if (currentPlayPosition >= 0) {
             if ((currentPlayPosition <= firstVisiblePosition || currentPlayPosition >= lastVisiblePosition - 1)) {
-                Log.d(TAG, "onScrollReleaseAllVideos: percent:" + getViewVisiblePercent(JZVideoPlayerManager.getCurrentJzvd()));
                 if (getViewVisiblePercent(JZVideoPlayerManager.getCurrentJzvd()) < percent) {
                     JZVideoPlayer.releaseAllVideos();
                 }
