@@ -33,7 +33,7 @@ import static com.zzh12138.jzvideodemo.fragment.VideoCommentFragment.DURATION;
 /**
  * Created by zhangzhihao on 2018/9/13 10:03.
  */
-public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VideoHolder> {
+public class VideoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "VideoListAdapter";
 
     private Context mContext;
@@ -53,122 +53,134 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
     @NonNull
     @Override
-    public VideoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new VideoHolder(LayoutInflater.from(mContext).inflate(R.layout.adapter_video, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (R.layout.adapter_video == viewType || viewType == R.layout.adapter_news_video) {
+            return new VideoHolder(LayoutInflater.from(mContext).inflate(R.layout.adapter_video, parent, false));
+        } else {
+            return new NoMoreHolder(LayoutInflater.from(mContext).inflate(viewType, parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final VideoHolder holder, int position) {
-        final NewsBean bean = mList.get(position);
-        holder.title.setText(bean.getTitle());
-        holder.source.setText("来源来源来源");
-        holder.praise.setText("666");
-        holder.comment.setText("777");
-        if (isAttach && position == 0) {
-            holder.container.removeAllViews();
-            holder.player = (JZVideoPlayerStandard) JZVideoPlayerManager.getCurrentJzvd();
-            holder.player.hideAnimationView();
-            holder.itemView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    holder.itemView.getViewTreeObserver().removeOnPreDrawListener(this);
-                    int[] l = new int[2];
-                    holder.itemView.getLocationOnScreen(l);
-                    holder.itemView.setTranslationY(attr.getY() - l[1] - (holder.container.getMeasuredHeight() - attr.getHeight()) / 2 - holder.title.getMeasuredHeight());
-                    holder.container.setScaleX(attr.getWidth() / (float) holder.container.getMeasuredWidth());
-                    holder.container.setScaleY(attr.getHeight() / (float) holder.container.getMeasuredHeight());
-                    holder.title.setAlpha(0);
-                    holder.bottomLayout.setAlpha(0);
-                    holder.itemView.animate().translationY(0).setDuration(DURATION);
-                    holder.title.animate().alpha(1f).setDuration(DURATION);
-                    holder.bottomLayout.animate().alpha(1f).setDuration(DURATION);
-                    holder.container.animate().scaleX(1f).scaleY(1f).setDuration(DURATION);
-                    holder.container.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (onAnimationFinishListener != null) {
-                                onAnimationFinishListener.onAnimationFinish();
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder h, int position) {
+        if (h instanceof VideoHolder) {
+            final VideoHolder holder = (VideoHolder) h;
+            final NewsBean bean = mList.get(position);
+            holder.title.setText(bean.getTitle());
+            holder.source.setText("来源来源来源");
+            holder.praise.setText("666");
+            holder.comment.setText("777");
+            if (isAttach && position == 0) {
+                holder.container.removeAllViews();
+                holder.player = (JZVideoPlayerStandard) JZVideoPlayerManager.getCurrentJzvd();
+                holder.player.hideAnimationView();
+                holder.itemView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        holder.itemView.getViewTreeObserver().removeOnPreDrawListener(this);
+                        int[] l = new int[2];
+                        holder.itemView.getLocationOnScreen(l);
+                        holder.itemView.setTranslationY(attr.getY() - l[1] - (holder.container.getMeasuredHeight() - attr.getHeight()) / 2 - holder.title.getMeasuredHeight());
+                        holder.container.setScaleX(attr.getWidth() / (float) holder.container.getMeasuredWidth());
+                        holder.container.setScaleY(attr.getHeight() / (float) holder.container.getMeasuredHeight());
+                        holder.title.setAlpha(0);
+                        holder.bottomLayout.setAlpha(0);
+                        holder.itemView.animate().translationY(0).setDuration(DURATION);
+                        holder.title.animate().alpha(1f).setDuration(DURATION);
+                        holder.bottomLayout.animate().alpha(1f).setDuration(DURATION);
+                        holder.container.animate().scaleX(1f).scaleY(1f).setDuration(DURATION);
+                        holder.container.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (onAnimationFinishListener != null) {
+                                    onAnimationFinishListener.onAnimationFinish();
+                                }
                             }
-                        }
-                    }, DURATION);
-                    isAttach = false;
-                    JZMediaManager.instance().positionInList = 0;
-                    JZVideoPlayerManager.getCurrentJzvd().attachToContainer(holder.container);
-                    JZVideoPlayerManager.setFirstFloor(holder.player);
-                    return true;
+                        }, DURATION);
+                        isAttach = false;
+                        JZMediaManager.instance().positionInList = 0;
+                        JZVideoPlayerManager.getCurrentJzvd().attachToContainer(holder.container);
+                        JZVideoPlayerManager.setFirstFloor(holder.player);
+                        return true;
+                    }
+                });
+            } else {
+                holder.player.setUp(bean.getVideoUrl(), JZVideoPlayer.SCREEN_WINDOW_NORMAL);
+            }
+            holder.player.setVideoList(true);
+            holder.player.setPlayerContainer(holder.container);
+            holder.player.positionInList = position;
+            holder.player.setVideoActivity(true);
+            holder.player.setOnVideoCompleteListener(new JZVideoPlayerStandard.OnVideoCompleteListener() {
+                @Override
+                public void onVideoPlayComplete() {
+                    if (completeListener != null) {
+                        completeListener.playNextVideo();
+                    }
+                }
+            }).setOnVideoPlayClickListener(new JZVideoPlayerStandard.OnVideoPlayClickListener() {
+                @Override
+                public void videoPlayClick() {
+                    if (playClickListener != null) {
+                        playClickListener.scrollToPosition(holder.getLayoutPosition());
+                    }
+                }
+            }).setOnVideoTimeChangeListener(new JZVideoPlayerStandard.OnVideoTimeChangeListener() {
+                @Override
+                public void showWillPlayNextTip() {
+                    if (JZVideoPlayerManager.getCurrentJzvd() == holder.player && completeListener != null) {
+                        completeListener.showWillPlayNextTip();
+                    }
                 }
             });
-        } else {
-            holder.player.setUp(bean.getVideoUrl(), JZVideoPlayer.SCREEN_WINDOW_NORMAL);
-        }
-        holder.player.setVideoList(true);
-        holder.player.setPlayerContainer(holder.container);
-        holder.player.positionInList = position;
-        holder.player.setVideoActivity(true);
-        holder.player.setOnVideoCompleteListener(new JZVideoPlayerStandard.OnVideoCompleteListener() {
-            @Override
-            public void onVideoPlayComplete() {
-                if (completeListener != null) {
-                    completeListener.playNextVideo();
+            Glide.with(mContext).load(bean.getImageUrl()).into(holder.player.coverImageView);
+            Glide.with(mContext).load(R.mipmap.ic_launcher_round).into(new SimpleTarget<Drawable>() {
+                @Override
+                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    resource.setBounds(0, 0, 50, 50);
+                    holder.source.setCompoundDrawables(resource, null, null, null);
                 }
-            }
-        }).setOnVideoPlayClickListener(new JZVideoPlayerStandard.OnVideoPlayClickListener() {
-            @Override
-            public void videoPlayClick() {
-                if (playClickListener != null) {
-                    playClickListener.scrollToPosition(holder.getLayoutPosition());
-                }
-            }
-        }).setOnVideoTimeChangeListener(new JZVideoPlayerStandard.OnVideoTimeChangeListener() {
-            @Override
-            public void showWillPlayNextTip() {
-                if (JZVideoPlayerManager.getCurrentJzvd() == holder.player && completeListener != null) {
-                    completeListener.showWillPlayNextTip();
-                }
-            }
-        });
-        Glide.with(mContext).load(bean.getImageUrl()).into(holder.player.coverImageView);
-        Glide.with(mContext).load(R.mipmap.ic_launcher_round).into(new SimpleTarget<Drawable>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                resource.setBounds(0, 0, 50, 50);
-                holder.source.setCompoundDrawables(resource, null, null, null);
-            }
-        });
-        holder.comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long delay = 0L;
-                if (JZMediaManager.instance().positionInList != holder.getLayoutPosition() || holder.itemView.getTop() != 0) {
-                    if (JZVideoPlayerManager.getCurrentJzvd() != null && JZVideoPlayerManager.getCurrentJzvd() != holder.player) {
-                        holder.player.startButton.performClick();
+            });
+            holder.comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long delay = 0L;
+                    if (JZMediaManager.instance().positionInList != holder.getLayoutPosition() || holder.itemView.getTop() != 0) {
+                        if (JZVideoPlayerManager.getCurrentJzvd() != null && JZVideoPlayerManager.getCurrentJzvd() != holder.player) {
+                            holder.player.startButton.performClick();
+                        }
+                        delay = 350L;
                     }
-                    delay = 350L;
-                }
-                holder.comment.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (commentClickListener != null) {
-                            ViewAttr attr = new ViewAttr();
-                            int[] location = new int[2];
-                            holder.container.getLocationOnScreen(location);
-                            attr.setX(location[0]);
-                            attr.setY(location[1]);
-                            commentClickListener.onCommentClick(bean, attr);
-                            if (JZVideoPlayerManager.getCurrentJzvd() == null) {
-                                JZVideoPlayerManager.FIRST_FLOOR_JZVD = holder.player;
-                                JZMediaManager.instance().positionInList = holder.getLayoutPosition();
+                    holder.comment.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (commentClickListener != null) {
+                                ViewAttr attr = new ViewAttr();
+                                int[] location = new int[2];
+                                holder.container.getLocationOnScreen(location);
+                                attr.setX(location[0]);
+                                attr.setY(location[1]);
+                                commentClickListener.onCommentClick(bean, attr);
+                                if (JZVideoPlayerManager.getCurrentJzvd() == null) {
+                                    JZVideoPlayerManager.FIRST_FLOOR_JZVD = holder.player;
+                                    JZMediaManager.instance().positionInList = holder.getLayoutPosition();
+                                }
                             }
                         }
-                    }
-                }, delay);
-            }
-        });
+                    }, delay);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
         return mList == null ? 0 : mList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mList.get(position).getType();
     }
 
     class VideoHolder extends RecyclerView.ViewHolder {
@@ -194,6 +206,13 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             comment = itemView.findViewById(R.id.comment);
             share = itemView.findViewById(R.id.share);
             bottomLayout = itemView.findViewById(R.id.bottom_layout);
+        }
+    }
+
+    class NoMoreHolder extends RecyclerView.ViewHolder {
+
+        public NoMoreHolder(View itemView) {
+            super(itemView);
         }
     }
 

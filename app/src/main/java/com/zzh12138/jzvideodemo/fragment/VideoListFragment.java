@@ -155,7 +155,10 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
             v3.setCommentNum(666);
             mList.add(v3);
         }
-        mAdapter.notifyItemRangeInserted(1, 13);
+        NewsBean noMore = new NewsBean();
+        noMore.setType(R.layout.layout_no_more);
+        mList.add(noMore);
+        mAdapter.notifyItemRangeInserted(1, 14);
         mBack.animate().alpha(1f).setDuration(DURATION);
     }
 
@@ -247,7 +250,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
             int first = mLayoutManager.findFirstVisibleItemPosition();
             View view = mRecycler.getChildAt(position - first);
             if (view != null) {
-                if (position == mList.size() - 1) {
+                if (position == mList.size() - 2) {
                     //最后一个
                     JZVideoPlayerStandard player = view.findViewById(R.id.player);
                     showMask(player);
@@ -294,7 +297,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
                     @Override
                     public void run() {
                         int position = JZMediaManager.instance().positionInList;
-                        if (position >= 0 && position < mList.size() - 1) {
+                        if (position >= 0 && position < mList.size() - 2) {
                             int first = mLayoutManager.findFirstVisibleItemPosition();
                             View view = mRecycler.getChildAt(position + 1 - first);
                             if (view != null) {
@@ -311,7 +314,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
 
     @Override
     public void showWillPlayNextTip() {
-        if (!isShowComment && JZMediaManager.instance().positionInList < mList.size() - 1) {
+        if (!isShowComment && JZMediaManager.instance().positionInList < mList.size() - 2) {
             mNext.setVisibility(View.VISIBLE);
         }
     }
@@ -398,7 +401,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
                 container.animate().scaleX((float) mAttr.getWidth() / container.getWidth())
                         .scaleY((float) mAttr.getHeight() / container.getHeight())
                         .setDuration(DURATION);
-                v.animate().translationY(mAttr.getY() - location[1] - (container.getHeight() - mAttr.getHeight()) / 2-title.getHeight()).setDuration(DURATION);
+                v.animate().translationY(mAttr.getY() - location[1] - (container.getHeight() - mAttr.getHeight()) / 2 - title.getHeight()).setDuration(DURATION);
                 bgAnimator.reverse();
             }
         }, 250);
