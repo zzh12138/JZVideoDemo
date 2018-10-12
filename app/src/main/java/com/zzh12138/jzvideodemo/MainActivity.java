@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.onVid
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
+                if (dy != 0) {
                     JZUtils.onScrollReleaseAllVideos(mLayoutManager.findFirstVisibleItemPosition(), mLayoutManager.findLastVisibleItemPosition(), 1f);
                 }
             }
