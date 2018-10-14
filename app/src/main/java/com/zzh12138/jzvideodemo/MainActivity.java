@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.onVid
         v1.setImageUrl("http://img5.imgtn.bdimg.com/it/u=3577771133,2332148944&fm=27&gp=0.jpg");
         v1.setVideoUrl("https://mov.bn.netease.com/open-movie/nos/mp4/2016/01/11/SBC46Q9DV_hd.mp4");
         v1.setCommentNum(666);
+        v1.setDuration(100);
         mList.add(4, v1);
 
         NewsBean v2 = new NewsBean();
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.onVid
         v2.setImageUrl("http://img0.imgtn.bdimg.com/it/u=3622851037,3121030191&fm=27&gp=0.jpg");
         v2.setVideoUrl("https://mov.bn.netease.com/open-movie/nos/mp4/2018/01/12/SD70VQJ74_sd.mp4");
         v2.setCommentNum(666);
+        v2.setDuration(100);
         mList.add(9, v2);
 
         NewsBean v3 = new NewsBean();
@@ -155,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.onVid
         v3.setImageUrl("http://img5.imgtn.bdimg.com/it/u=3974436224,4269321529&fm=27&gp=0.jpg");
         v3.setVideoUrl("https://mov.bn.netease.com/open-movie/nos/mp4/2017/12/04/SD3SUEFFQ_hd.mp4");
         v3.setCommentNum(666);
+        v3.setDuration(100);
         mList.add(10, v3);
     }
 

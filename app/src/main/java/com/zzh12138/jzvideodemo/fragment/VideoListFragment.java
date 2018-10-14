@@ -87,7 +87,6 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
             "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539513473553&di=9dc2c9b5c6b63558072ca61d55c9d30f&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201611%2F13%2F20161113214253_NWdzE.jpeg",
             "http://i1.hdslb.com/bfs/archive/650939780b3174fe7d3277e3288979cc6223a8ad.jpg",
             "http://img3.duitang.com/uploads/item/201401/27/20140127213202_4Tmsa.jpeg",
-            "http://pic.feizl.com/upload/allimg/170616/0401544L6-9.jpg",
             "http://android-wallpapers.25pp.com/20140415/1446/534cd60d01d7047_900x675.jpg",
             "http://cdn.duitang.com/uploads/item/201602/27/20160227181133_YjZVe.jpeg",
             "http://img3.imgtn.bdimg.com/it/u=999553423,3288263012&fm=26&gp=0.jpg",
@@ -96,7 +95,8 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
             "http://img1.imgtn.bdimg.com/it/u=3655565462,314827133&fm=26&gp=0.jpg",
             "http://img1.imgtn.bdimg.com/it/u=1627185924,1925590495&fm=26&gp=0.jpg",
             "http://img0.imgtn.bdimg.com/it/u=3622851037,3121030191&fm=27&gp=0.jpg",
-            "http://img3.imgtn.bdimg.com/it/u=3159360602,2315537063&fm=27&gp=0.jpg"};
+            "http://img3.imgtn.bdimg.com/it/u=3159360602,2315537063&fm=27&gp=0.jpg",
+            "http://img1.imgtn.bdimg.com/it/u=2156236282,1270726641&fm=27&gp=0.jpg"};
     private LinearLayoutManager mLayoutManager;
     private boolean isShowComment;
     private boolean isNeedToPlayNext;
