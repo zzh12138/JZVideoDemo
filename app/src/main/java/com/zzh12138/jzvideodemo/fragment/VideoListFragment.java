@@ -292,35 +292,37 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
             JZVideoPlayer.backPress();
             isNeedToPlayNext = true;
         } else {
-            if (JZVideoPlayerManager.getCurrentJzvd().currentScreen == SCREEN_WINDOW_FULLSCREEN) {
-                JZMediaManager.instance().positionInList++;
-                JZVideoPlayerManager.getCurrentJzvd().changeUrl(mList.get(JZMediaManager.instance().positionInList).getVideoUrl());
-                mLayoutManager.scrollToPositionWithOffset(JZMediaManager.instance().positionInList, 0);
-                mRecycler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+            if (mRecycler != null) {
+                if (JZVideoPlayerManager.getCurrentJzvd().currentScreen == SCREEN_WINDOW_FULLSCREEN) {
+                    JZMediaManager.instance().positionInList++;
+                    JZVideoPlayerManager.getCurrentJzvd().changeUrl(mList.get(JZMediaManager.instance().positionInList).getVideoUrl());
+                    mLayoutManager.scrollToPositionWithOffset(JZMediaManager.instance().positionInList, 0);
+                    mRecycler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
 //                        JZVideoPlayerManager.getFirstFloor().setState(CURRENT_STATE_NORMAL);
-                        mask.setVisibility(View.GONE);
-                        JZVideoPlayerManager.setFirstFloor((JZVideoPlayer) mRecycler.getChildAt(0).findViewById(R.id.player));
-                    }
-                }, 500);
-            } else {
-                long delay = 500;
-                mRecycler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        int position = JZMediaManager.instance().positionInList;
-                        if (position >= 0 && position < mList.size() - 2) {
-                            int first = mLayoutManager.findFirstVisibleItemPosition();
-                            View view = mRecycler.getChildAt(position + 1 - first);
-                            if (view != null) {
-                                int scrollY;
-                                scrollY = view.getTop() - DensityUtil.dipTopx(getContext(), 50);
-                                mRecycler.smoothScrollBy(0, scrollY);
+                            mask.setVisibility(View.GONE);
+                            JZVideoPlayerManager.setFirstFloor((JZVideoPlayer) mRecycler.getChildAt(0).findViewById(R.id.player));
+                        }
+                    }, 500);
+                } else {
+                    long delay = 500;
+                    mRecycler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            int position = JZMediaManager.instance().positionInList;
+                            if (position >= 0 && position < mList.size() - 2) {
+                                int first = mLayoutManager.findFirstVisibleItemPosition();
+                                View view = mRecycler.getChildAt(position + 1 - first);
+                                if (view != null) {
+                                    int scrollY;
+                                    scrollY = view.getTop() - DensityUtil.dipTopx(getContext(), 50);
+                                    mRecycler.smoothScrollBy(0, scrollY);
+                                }
                             }
                         }
-                    }
-                }, delay);
+                    }, delay);
+                }
             }
         }
     }
