@@ -542,7 +542,6 @@ public class JZVideoPlayerStandard extends JZVideoPlayer {
      */
     @Override
     public void showWifiDialog() {
-        JZVideoPlayerManager.completeAll();
         consumeLayout.setVisibility(View.VISIBLE);
         startButton.setVisibility(View.GONE);
         voiceLayout.setVisibility(View.GONE);
