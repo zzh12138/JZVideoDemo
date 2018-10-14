@@ -244,6 +244,8 @@ public class JZVideoPlayerStandard extends JZVideoPlayer {
         loadingProgressBar.setVisibility(View.VISIBLE);
         startButton.setVisibility(View.GONE);
         textureViewContainer.setVisibility(View.GONE);
+        coverImageView.setVisibility(GONE);
+        totalTimeTextView.setVisibility(GONE);
     }
 
     /**

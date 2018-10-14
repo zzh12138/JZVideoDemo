@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
+import com.zzh12138.jzvideodemo.player.JZExoPlayer;
+import com.zzh12138.jzvideodemo.player.JZVideoPlayer;
 import com.zzh12138.jzvideodemo.player.SoDownloadIntentService;
 
 /**
@@ -16,6 +18,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+        JZVideoPlayer.setMediaInterface(new JZExoPlayer());
         Intent so = new Intent(mContext, SoDownloadIntentService.class);
         mContext.startService(so);
     }

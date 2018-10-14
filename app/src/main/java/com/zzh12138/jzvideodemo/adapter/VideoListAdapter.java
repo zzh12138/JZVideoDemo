@@ -105,7 +105,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             } else {
-                holder.player.setUp(bean.getVideoUrl(), JZVideoPlayer.SCREEN_WINDOW_NORMAL);
+                holder.player.setUp(bean.getVideoUrl(), JZVideoPlayer.SCREEN_WINDOW_NORMAL,bean.getTitle());
             }
             holder.player.setVideoList(true);
             holder.player.setPlayerContainer(holder.container);

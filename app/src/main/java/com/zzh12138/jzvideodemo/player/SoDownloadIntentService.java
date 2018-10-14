@@ -34,7 +34,7 @@ public class SoDownloadIntentService extends IntentService {
                 JZVideoPlayer.setMediaInterface(new JZMediaIjkplayer());
             }
         } else {
-            String url = "http://devstatic.nfapp.southcn.com/video/libijkffmpeg.so";
+            String url = "http://bmob-cdn-21848.b0.upaiyun.com/2018/10/12/2296183a4014f71080f878c0818d38b0.so";
             try {
                 URL downUrl = new URL(url);
                 URLConnection connection = downUrl.openConnection();

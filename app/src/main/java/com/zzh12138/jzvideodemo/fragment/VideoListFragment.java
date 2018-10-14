@@ -70,11 +70,9 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
     private List<NewsBean> mList;
     private String[] url = {
             "http://jiajunhui.cn/video/kaipao.mp4",
-//            "https://github.com/zzh12138/JZVideoDemo/blob/master/1.mp4",
-            "https://test-media-external.oss-cn-shenzhen.aliyuncs.com/Act-ss-mp4-ld/5b6d59074d69954f64a8d5d2.mp4",
+            "https://bmob-cdn-21848.b0.upaiyun.com/2018/10/12/ac83886740c3ab6c808ba41b78e7ce1f.mp4",
             "http://jiajunhui.cn/video/kongchengji.mp4",
-//            "https://github.com/zzh12138/JZVideoDemo/blob/master/2.mp4",
-            "https://test-media-external.oss-cn-shenzhen.aliyuncs.com/Act-ss-mp4-ld/5b57146b4d69955a5510bc50.mp4",
+            "https://bmob-cdn-21848.b0.upaiyun.com/2018/10/12/6d6311b740f31dea80fd16e8d9a26b98.mp4",
             "http://jiajunhui.cn/video/allsharestar.mp4",
             "http://jiajunhui.cn/video/edwin_rolling_in_the_deep.flv",
             "http://jiajunhui.cn/video/crystalliz.flv",
@@ -146,7 +144,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
     }
 
     private void getData() {
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < url.length; i++) {
             NewsBean v3 = new NewsBean();
             v3.setTitle("视频新闻视频新闻视频新闻视频新闻视频新闻视频新闻视频新闻" + i);
             v3.setType(R.layout.adapter_video);
@@ -158,7 +156,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
         NewsBean noMore = new NewsBean();
         noMore.setType(R.layout.layout_no_more);
         mList.add(noMore);
-        mAdapter.notifyItemRangeInserted(1, 14);
+        mAdapter.notifyItemRangeInserted(1, url.length);
         mBack.animate().alpha(1f).setDuration(DURATION);
     }
 
@@ -288,6 +286,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
                     @Override
                     public void run() {
 //                        JZVideoPlayerManager.getFirstFloor().setState(CURRENT_STATE_NORMAL);
+                        mask.setVisibility(View.GONE);
                         JZVideoPlayerManager.setFirstFloor((JZVideoPlayer) mRecycler.getChildAt(0).findViewById(R.id.player));
                     }
                 }, 500);
@@ -349,8 +348,8 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
         return isShowComment;
     }
 
-    private void showMask(JZVideoPlayer player) {
-        if (player != null && !isShowComment) {
+    public void showMask(JZVideoPlayer player) {
+        if (player != null && !isShowComment && mask.getVisibility() == View.GONE) {
             int[] a = new int[2];
             player.getLocationOnScreen(a);
             a[1] -= getStatusBarHeight(getContext());

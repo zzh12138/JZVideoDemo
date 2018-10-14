@@ -1092,7 +1092,6 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
             jzVideoPlayer.isVideoActivity = isVideoActivity;
             jzVideoPlayer.isMute = isMute;
             jzVideoPlayer.onVideoCompleteListener = onVideoCompleteListener;
-            onVideoCompleteListener = null;
 
             onStateNormal();
             jzVideoPlayer.startProgressTimer();
@@ -1154,7 +1153,6 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
         mute.setImageDrawable(JZVideoPlayerManager.getSecondFloor().mute.getDrawable());
         isVideoActivity = JZVideoPlayerManager.getSecondFloor().isVideoActivity;
         isMute = JZVideoPlayerManager.getSecondFloor().isMute;
-        onVideoCompleteListener = JZVideoPlayerManager.getSecondFloor().onVideoCompleteListener;
         clearFloatScreen();
         //2.在本jzvd上播放
         setState(currentState);

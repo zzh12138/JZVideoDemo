@@ -172,6 +172,14 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.onVid
     @Override
     public void onBackPressed() {
         if (JZVideoPlayer.backPress()) {
+            if (isShowVideo) {
+                recycler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        videoListFragment.showMask(JZVideoPlayerManager.getCurrentJzvd());
+                    }
+                }, 300);
+            }
         } else if (isShowVideo) {
             if (videoListFragment.isShowComment()) {
                 videoListFragment.closeCommentFragment();
