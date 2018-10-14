@@ -83,6 +83,20 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
             "https://mov.bn.netease.com/open-movie/nos/mp4/2017/12/04/SD3SUEFFQ_hd.mp4",
             "https://mov.bn.netease.com/open-movie/nos/mp4/2016/01/11/SBC46Q9DV_hd.mp4"
     };
+    private String[] cover = {
+            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539513473553&di=9dc2c9b5c6b63558072ca61d55c9d30f&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201611%2F13%2F20161113214253_NWdzE.jpeg",
+            "http://i1.hdslb.com/bfs/archive/650939780b3174fe7d3277e3288979cc6223a8ad.jpg",
+            "http://img3.duitang.com/uploads/item/201401/27/20140127213202_4Tmsa.jpeg",
+            "http://pic.feizl.com/upload/allimg/170616/0401544L6-9.jpg",
+            "http://android-wallpapers.25pp.com/20140415/1446/534cd60d01d7047_900x675.jpg",
+            "http://cdn.duitang.com/uploads/item/201602/27/20160227181133_YjZVe.jpeg",
+            "http://img3.imgtn.bdimg.com/it/u=999553423,3288263012&fm=26&gp=0.jpg",
+            "http://pic27.photophoto.cn/20130630/0036036878082529_b.jpg",
+            "http://img4.imgtn.bdimg.com/it/u=1995890925,817602913&fm=26&gp=0.jpg",
+            "http://img1.imgtn.bdimg.com/it/u=3655565462,314827133&fm=26&gp=0.jpg",
+            "http://img1.imgtn.bdimg.com/it/u=1627185924,1925590495&fm=26&gp=0.jpg",
+            "http://img0.imgtn.bdimg.com/it/u=3622851037,3121030191&fm=27&gp=0.jpg",
+            "http://img3.imgtn.bdimg.com/it/u=3159360602,2315537063&fm=27&gp=0.jpg"};
     private LinearLayoutManager mLayoutManager;
     private boolean isShowComment;
     private boolean isNeedToPlayNext;
@@ -148,7 +162,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
             NewsBean v3 = new NewsBean();
             v3.setTitle("视频新闻视频新闻视频新闻视频新闻视频新闻视频新闻视频新闻" + i);
             v3.setType(R.layout.adapter_video);
-            v3.setImageUrl("http://img5.imgtn.bdimg.com/it/u=3974436224,4269321529&fm=27&gp=0.jpg");
+            v3.setImageUrl(cover[i]);
             v3.setVideoUrl(url[i]);
             v3.setCommentNum(666);
             mList.add(v3);
