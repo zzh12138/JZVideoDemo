@@ -200,17 +200,17 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.onVid
         final NewsBean bean = mList.get(clickPosition);
         if (videoListFragment.isPlayingFirst()) {
             videoListFragment.removeVideoList();
-            recycler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    JZMediaManager.instance().positionInList = clickPosition;
-                    int first = mLayoutManager.findFirstVisibleItemPosition();
-                    View v = recycler.getChildAt(clickPosition - first);
-                    if (v != null) {
-                        final PlayerContainer container = v.findViewById(R.id.adapter_video_container);
-                        if (!isAttach) {
-                            container.removeAllViews();
-                        }
+            JZMediaManager.instance().positionInList = clickPosition;
+            int first = mLayoutManager.findFirstVisibleItemPosition();
+            View v = recycler.getChildAt(clickPosition - first);
+            if (v != null) {
+                final PlayerContainer container = v.findViewById(R.id.adapter_video_container);
+                if (!isAttach) {
+                    container.removeAllViews();
+                }
+                recycler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
                         JZVideoPlayerManager.getCurrentJzvd().attachToContainer(container);
                         JZVideoPlayerStandard p = (JZVideoPlayerStandard) JZVideoPlayerManager.getCurrentJzvd();
                         p.showAnimationView();
@@ -231,12 +231,13 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.onVid
                                         onTitleClick(clickPosition, attr);
                                     }
                                 });
+
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.remove(videoListFragment);
+                        transaction.commitAllowingStateLoss();
                     }
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.remove(videoListFragment);
-                    transaction.commitAllowingStateLoss();
-                }
-            }, 800);
+                }, 800);
+            }
         } else {
             JZVideoPlayer.releaseAllVideos();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
