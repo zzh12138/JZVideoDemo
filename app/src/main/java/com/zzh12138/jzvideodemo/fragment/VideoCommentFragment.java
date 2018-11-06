@@ -57,6 +57,7 @@ public class VideoCommentFragment extends Fragment {
     private CommentAdapter mAdapter;
     private OnCloseClickListener onCloseClickListener;
     private ObjectAnimator animator;
+    private boolean isChanging;
 
 
     @Nullable
@@ -70,8 +71,17 @@ public class VideoCommentFragment extends Fragment {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onCloseClickListener != null) {
-                    onCloseClickListener.closeCommentFragment();
+                if (!isChanging) {
+                    isChanging = true;
+                    if (onCloseClickListener != null) {
+                        onCloseClickListener.closeCommentFragment();
+                        close.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                isChanging = false;
+                            }
+                        }, 250);
+                    }
                 }
             }
         });

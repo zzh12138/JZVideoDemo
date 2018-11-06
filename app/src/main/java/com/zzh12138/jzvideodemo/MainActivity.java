@@ -11,14 +11,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.zzh12138.jzvideodemo.adapter.NewsAdapter;
 import com.zzh12138.jzvideodemo.bean.NewsBean;
 import com.zzh12138.jzvideodemo.bean.ViewAttr;
-import com.zzh12138.jzvideodemo.fragment.VideoCommentFragment;
 import com.zzh12138.jzvideodemo.fragment.VideoListFragment;
 import com.zzh12138.jzvideodemo.itemDecoration.LineItemDecoration;
 import com.zzh12138.jzvideodemo.player.JZMediaManager;
@@ -47,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.onVid
     private boolean isShowVideo;
     private int clickPosition;
     private boolean isAttach;
+    private boolean isChanging;
 
     private BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
         @Override
@@ -278,17 +277,26 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.onVid
 
     @Override
     public void onTitleClick(int position, ViewAttr attr) {
-        isShowVideo = true;
-        clickPosition = position;
-        isAttach = JZVideoPlayerManager.getCurrentJzvd() != null && JZMediaManager.isPlaying();
-        videoListFragment = new VideoListFragment();
-        videoListFragment.setAttr(attr);
-        videoListFragment.setNews(mList.get(position));
-        videoListFragment.setAttach(isAttach);
-        if (!videoListFragment.isAdded() && getSupportFragmentManager().findFragmentByTag("acg") == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.root, videoListFragment, "acg");
-            transaction.commitAllowingStateLoss();
+        if (!isChanging) {
+            isChanging = true;
+            isShowVideo = true;
+            clickPosition = position;
+            isAttach = JZVideoPlayerManager.getCurrentJzvd() != null && JZMediaManager.isPlaying();
+            videoListFragment = new VideoListFragment();
+            videoListFragment.setAttr(attr);
+            videoListFragment.setNews(mList.get(position));
+            videoListFragment.setAttach(isAttach);
+            if (!videoListFragment.isAdded() && getSupportFragmentManager().findFragmentByTag("acg") == null) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.root, videoListFragment, "acg");
+                transaction.commitAllowingStateLoss();
+                recycler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        isChanging = false;
+                    }
+                }, 250);
+            }
         }
     }
 

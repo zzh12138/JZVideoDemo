@@ -107,6 +107,7 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
     private ViewAttr mAttr;
     private boolean isAttach;
     private ObjectAnimator bgAnimator;
+    private boolean isChanging;
 
     @Override
     public void onAttach(Context context) {
@@ -242,17 +243,27 @@ public class VideoListFragment extends Fragment implements VideoListAdapter.OnCo
 
     @Override
     public void onCommentClick(NewsBean article, ViewAttr attr) {
-        isShowComment = true;
-        mask.setVisibility(View.GONE);
-        mNext.setVisibility(View.GONE);
-        commentFragment = new VideoCommentFragment();
-        commentFragment.setOnCloseClickListener(this);
-        commentFragment.setAttr(attr);
-        commentFragment.setNews(article);
-        if (!commentFragment.isAdded() && getFragmentManager().findFragmentByTag("ff") == null) {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.comment_container, commentFragment, "ff");
-            transaction.commitAllowingStateLoss();
+        if (!isChanging) {
+            isChanging = true;
+            isShowComment = true;
+            mask.setVisibility(View.GONE);
+            mNext.setVisibility(View.GONE);
+            commentFragment = new VideoCommentFragment();
+            commentFragment.setOnCloseClickListener(this);
+            commentFragment.setAttr(attr);
+            commentFragment.setNews(article);
+            if (!commentFragment.isAdded() && getFragmentManager().findFragmentByTag("ff") == null) {
+                Log.d(TAG, "onCommentClick: add");
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.add(R.id.comment_container, commentFragment, "ff");
+                transaction.commitAllowingStateLoss();
+                mask.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        isChanging = false;
+                    }
+                }, 250);
+            }
         }
     }
 
